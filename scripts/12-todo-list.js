@@ -27,11 +27,33 @@ function renderPlanningGrid(list) {
     list.forEach((index) => {
         planningHTML += `<div class="js-date-${index}"></div>
                         <div class="js-dish-render-${index}" ></div>
-                        <input type="text" class="js-dish-input">
+                        <div class="js-dish"></div>
                         <button class="clear-dish js-clear-dish-${index}">x</button>`;
     });
+
+    let inputHTML = '<input type="text" class="js-dish-input">';
+
+    /* Drop down menu; how to get selected value
+                             
+        <select>
+        <option selected value="1"></option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        </select>
+                        
+    */
    
-    document.querySelector('.js-planning-grid').innerHTML = planningHTML;    
+    document.querySelector('.js-planning-grid').innerHTML = planningHTML;
+    document.querySelectorAll('.js-dish').forEach((item)=>{
+        item.innerHTML = inputHTML;
+    })
 }
 
 function renderDates(list) {
