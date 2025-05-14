@@ -1,11 +1,32 @@
 import { loadGrocFromStorage, saveGrocToStorage, grocList, clearGrocList } from "../data/grocList.js";
 import { loadDishFromStorage, saveDishToStorage, dishList, clearDishList, removeDish, renderDish } from "../data/dishList.js";
 import { recipes, getIngredients, getAllRecipeNames } from "../data/recipes.js";
+import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 
+// Load 
 loadGrocFromStorage();
 loadDishFromStorage();
 
+// Render dates
+renderDates();
+
+// Render
 renderTodoList();
+
+function renderDates() {
+    const today = dayjs();
+    const startDate = today.startOf('week',true)
+
+    const list = [0, 1, 2, 3, 4, 5, 6];
+    const formattedDates = [];
+    list.forEach((item) => {
+        const nextWeekStart = startDate.add(8+item,'days')
+        formattedDates.push(
+            nextWeekStart.format(' DD/MM dddd')
+        );
+        document.querySelector(`.js-date-${item}`).innerHTML = formattedDates[item];
+    }); 
+}
 
 export function renderTodoList() {
     let todoListHTML = [];
