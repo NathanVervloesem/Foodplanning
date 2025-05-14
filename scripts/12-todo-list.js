@@ -172,6 +172,9 @@ document.querySelectorAll('.js-dish-input').forEach((link,index)=> {
                 };
             };
 
+            // Make the input block empty
+            link.value = '';
+
         };
     })
 });
@@ -223,7 +226,10 @@ document.querySelector('.js-clear-all-dish-list').addEventListener('click',() =>
     let html = '';
     const list = [0, 1, 2, 3, 4, 5, 6];
     list.forEach((index)=> {
-        document.querySelector(`.js-dish-render-${index}`).innerHTML = html;
+        //document.querySelector(`.js-dish-render-${index}`).innerHTML = html;
+        
+        // Remove dish
+        removeDish(index);
     });
 });
 

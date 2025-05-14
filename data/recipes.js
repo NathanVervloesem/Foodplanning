@@ -1,24 +1,3 @@
-export const recipes = [{
-    name: 'spaghetti',
-    ingredients: [
-        { name:'pasta',
-            quantity: 1
-        },{ name: 'tomatensaus',
-            quantity: 2
-        }]
-},{
-    name: 'pizza',
-    ingredients: [
-        { name:'deeg',
-            quantity: 2
-        },{ name:'tomatensaus',
-        quantity:1 
-        },{ name:'ananas',
-            quantity:1
-        }]
-}
-]
-
 export function getIngredients(dishName) {
     let matchingIngredients;
 
@@ -39,3 +18,34 @@ export function getAllRecipeNames() {
     });
     return recipeNameList
 }
+
+export const recipes = [{
+    name: 'spaghetti',
+    ingredients: [
+        { name:'pasta',
+            quantity: 1
+        },{ name: 'tomatensaus',
+            quantity: 2
+        }]
+},{
+    name: 'pizza',
+    ingredients: [
+        { name:'deeg',
+            quantity: 2
+        },{ name:'tomatensaus',
+        quantity:1 
+        },{ name:'ananas',
+            quantity:1
+        }]
+},{
+    name: 'wok',
+    ingredients: [
+        { name:'wokgroenten',
+            quantity: 1
+        },{ name:'currypoeder',
+            quantity: 1
+        }
+    ]
+}
+]
+
