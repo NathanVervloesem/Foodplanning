@@ -74,9 +74,9 @@ export function renderTodoList() {
 
     grocList.forEach((todoObject, index) => {
         //const todoObject = grocList[i];
-        const {name, dueDate, quantity} = todoObject;
+        const {name, dueDate, quantity, unit} = todoObject;
         const html = 
-            `<div>${name}</div>
+            `<div>${name} (${unit})</div>
             <div>${quantity}</div>
             <div>${dueDate}</div>
             <button class="delete-todo-button js-delete-todo-button">Verwijder</button>
@@ -163,7 +163,8 @@ function addTodo() {
             {
                 name,
                 dueDate,
-                quantity
+                quantity,
+                unit
             }
         );   
     }
@@ -194,7 +195,8 @@ function addIngredient(ingredient) {
             {
                 name: ingredient.name,
                 dueDate:'',
-                quantity: ingredient.quantity
+                quantity: ingredient.quantity,
+                unit: ingredient.unit
             })
     }
 

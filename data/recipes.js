@@ -26,9 +26,11 @@ export const recipes = [{
     name: 'spaghetti',
     ingredients: [
         { name:'pasta',
-            quantity: 1
+            quantity: 400,
+            unit: 'gram'
         },{ name: 'tomatensaus',
-            quantity: 2
+            quantity: 2,
+            unit: 'bokaal'
         }]
 },{
     name: 'pizza',
@@ -36,17 +38,21 @@ export const recipes = [{
         { name:'deeg',
             quantity: 2
         },{ name:'tomatensaus',
-        quantity:1 
+            quantity: 1,
+            unit: 'bokaal'
         },{ name:'ananas',
-            quantity:1
+            quantity:1,
+            unit: 'blik'
         }]
 },{
     name: 'wok',
     ingredients: [
         { name:'wokgroenten',
-            quantity: 1
+            quantity: 1,
+            unit:'zak'
         },{ name:'currypoeder',
-            quantity: 1
+            quantity: 1,
+            unit: 'zak'
         }
     ]
 }
