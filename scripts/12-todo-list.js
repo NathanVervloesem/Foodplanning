@@ -7,17 +7,36 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 loadGrocFromStorage();
 loadDishFromStorage();
 
+// Render planning grid
+const list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+renderPlanningGrid(list);
+
 // Render dates
-renderDates();
+renderDates(list);
 
 // Render
 renderTodoList();
 
-function renderDates() {
+function renderPlanningGrid(list) {
+    let planningHTML = `<div class="subtitle">Dag</div>
+        <div class="subtitle">Gerecht</div>
+        <div><button class="clear-all-dish-list js-clear-all-dish-list">Verwijder alle gerechten</button></div>
+        <div></div>`
+
+    // Rendering days
+    list.forEach((index) => {
+        planningHTML += `<div class="js-date-${index}"></div>
+                        <div class="js-dish-render-${index}" ></div>
+                        <input type="text" class="js-dish-input">
+                        <button class="clear-dish js-clear-dish-${index}">x</button>`;
+    });
+   
+    document.querySelector('.js-planning-grid').innerHTML = planningHTML;    
+}
+
+function renderDates(list) {
     const today = dayjs();
     const startDate = today.startOf('week',true)
-
-    const list = [0, 1, 2, 3, 4, 5, 6];
     const formattedDates = [];
     list.forEach((item) => {
         const nextWeekStart = startDate.add(8+item,'days')
@@ -128,6 +147,9 @@ function addTodo() {
     }
 
     inputElement.value = '';
+    dateInputElement.value = '';
+    quantityInputElement.value = '';
+
 
     saveGrocToStorage();
 
@@ -245,7 +267,6 @@ document.querySelector('.js-clear-all-dish-list').addEventListener('click',() =>
 
     // Generate HTML
     let html = '';
-    const list = [0, 1, 2, 3, 4, 5, 6];
     list.forEach((index)=> {
         //document.querySelector(`.js-dish-render-${index}`).innerHTML = html;
         
@@ -255,7 +276,6 @@ document.querySelector('.js-clear-all-dish-list').addEventListener('click',() =>
 });
 
 // Remove a rendered dish
-const list = [0, 1, 2, 3, 4, 5, 6];
 list.forEach((index) => {
     document.querySelector(`.js-clear-dish-${index}`).addEventListener('click',()=>{
 
