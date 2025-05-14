@@ -20,6 +20,9 @@ export function getAllRecipeNames() {
 }
 
 export const recipes = [{
+    name: 'restaurant',
+    ingredients: []
+},{
     name: 'spaghetti',
     ingredients: [
         { name:'pasta',
