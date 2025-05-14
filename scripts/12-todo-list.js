@@ -18,8 +18,8 @@ export function renderTodoList() {
             <div>${quantity}</div>
             <div>${dueDate}</div>
             <button class="delete-todo-button js-delete-todo-button">Verwijder</button>
-            <button class="plus-button">+</button>
-            <button class="min-button">-</button>`;
+            <button class="plus-button js-plus-button">+</button>
+            <button class="min-button js-min-button">-</button>`;
         todoListHTML += html;
     });
 
@@ -27,6 +27,7 @@ export function renderTodoList() {
     
     document.querySelector('.js-todo-list').innerHTML = todoListHTML;    
 
+    // Delete groc button
     document.querySelectorAll('.js-delete-todo-button').forEach((deleteButton, index) => {
         deleteButton.addEventListener('click', () => {
             grocList.splice(index, 1);
@@ -34,9 +35,34 @@ export function renderTodoList() {
             renderTodoList();
         });
     });
+        
+    // Plus button
+    document.querySelectorAll('.js-plus-button').forEach((plusButton,index) => {
+        plusButton.addEventListener('click', ()=> {
+            grocList[index].quantity++;
+            saveGrocToStorage();
+            renderTodoList();
+        });
+    });
+
+    // Min button
+    document.querySelectorAll('.js-min-button').forEach((minButton,index) => {
+        minButton.addEventListener('click', ()=>{
+            if (grocList[index].quantity > 1) {
+                grocList[index].quantity--;
+            } else {
+                grocList.splice(index, 1);
+            }
+            
+            saveGrocToStorage();
+            renderTodoList();
+        })
+
+    });
     
 }
 
+// Adding a grocery in list
 document.querySelector('.js-add-todo-button').addEventListener('click', () => {
     addTodo();
     console.log('push')
