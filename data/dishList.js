@@ -41,9 +41,9 @@ export function removeDish(index) {
 
         ingredients.forEach((ingredient) => {
             grocList.forEach((groc,index) => {
-                if (groc.name === ingredient) {
-                    if (groc.quantity > 1) {
-                        groc.quantity -= 1;
+                if (groc.name === ingredient.name) {
+                    if (groc.quantity > ingredient.quantity) {
+                        groc.quantity -= ingredient.quantity;
                     } else {
                         grocList.splice(index, 1);
                     };

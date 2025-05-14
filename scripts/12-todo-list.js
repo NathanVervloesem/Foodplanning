@@ -91,17 +91,17 @@ function addIngredient(ingredient) {
     let matchingIngredient
     grocList.forEach((groc) => {
         // Find matching item
-        if (groc.name === ingredient) {
+        if (groc.name === ingredient.name) {
             matchingIngredient = groc.name;
-            groc.quantity++;
+            groc.quantity += ingredient.quantity;
         } 
     })
     if (!matchingIngredient) {
         grocList.push(
             {
-                name:ingredient,
+                name: ingredient.name,
                 dueDate:'',
-                quantity: 1
+                quantity: ingredient.quantity
             })
     }
 
@@ -128,13 +128,11 @@ document.querySelectorAll('.js-dish-input').forEach((link,index)=> {
             const dish = link.value;
             if (dish) {
                 if (!dishPrev) {
-                    console.log('not previous dish')
-                    console.log(dish);
+                    //console.log('not previous dish')
                     addDish(dish);
         
                     // Generate HTML
                     renderDish(dish,index);
-                    //let html = ;
                    
                 } else if (dishPrev !== dish) {
                         // Overwrite the dish
@@ -151,8 +149,7 @@ document.querySelectorAll('.js-dish-input').forEach((link,index)=> {
 
 
 function addDish(dish) {
-    /*const dishInputElement = document.querySelector('.js-dish-input');
-    const dish = dishInputElement.value; */
+
     //const today = dayjs();
 
     dishList.push(dish);
@@ -162,8 +159,6 @@ function addDish(dish) {
 
     // Get ingredients
     const ingredients = getIngredients(dish);
-
-    //console.log(ingredients)
 
     // Add all ingredients to todoList
     ingredients.forEach((ingredient) =>{
@@ -192,38 +187,6 @@ list.forEach((index) => {
 
         // Remove dish
         removeDish(index);
-        /*
-        // Get dish from rendered html
-        let dish = document.querySelector(`.js-dish-render-${index}`).innerHTML;
-
-        // Remove from render
-        document.querySelector(`.js-dish-render-${index}`).innerHTML = ''
-
-        // Remove from list
-        const index1 = dishList.indexOf(dish);
-        dishList.splice(index1,1);
-
-        saveDishToStorage();*/
-
-
-        // Also remove ingredients from groc list
-        /*
-        let ingredients = getIngredients(dish);
-
-        ingredients.forEach((ingredient) => {
-            grocList.forEach((groc,index) => {
-                if (groc.name === ingredient) {
-                    if (groc.quantity > 1) {
-                        groc.quantity -= 1;
-                    } else {
-                        grocList.splice(index, 1);
-                    };
-                    saveGrocToStorage();
-                    renderTodoList();
-                };
-            });
-
-        });*/
 
     })
 });

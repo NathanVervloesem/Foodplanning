@@ -1,9 +1,21 @@
 export const recipes = [{
     name: 'spaghetti',
-    ingredients: ['pasta','tomatensaus']
+    ingredients: [
+        { name:'pasta',
+            quantity: 1
+        },{ name: 'tomatensaus',
+            quantity: 2
+        }]
 },{
     name: 'pizza',
-    ingredients: ['deeg','tomatensaus','ananas']
+    ingredients: [
+        { name:'deeg',
+            quantity: 2
+        },{ name:'tomatensaus',
+        quantity:1 
+        },{ name:'ananas',
+            quantity:1
+        }]
 }
 ]
 
@@ -17,4 +29,5 @@ export function getIngredients(dishName) {
     });
 
     return matchingIngredients;
+
 }
