@@ -17,7 +17,9 @@ export function renderTodoList() {
             `<div>${name}</div>
             <div>${quantity}</div>
             <div>${dueDate}</div>
-            <button class="delete-todo-button js-delete-todo-button">Verwijder</button>`;
+            <button class="delete-todo-button js-delete-todo-button">Verwijder</button>
+            <button class="plus-button">+</button>
+            <button class="min-button">-</button>`;
         todoListHTML += html;
     });
 
