@@ -31,3 +31,11 @@ export function getIngredients(dishName) {
     return matchingIngredients;
 
 }
+
+export function getAllRecipeNames() {
+    let recipeNameList = [];
+    recipes.forEach((recipe) => {
+        recipeNameList.push(recipe.name)
+    });
+    return recipeNameList
+}

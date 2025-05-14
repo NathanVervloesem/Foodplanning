@@ -1,6 +1,6 @@
 import { loadGrocFromStorage, saveGrocToStorage, grocList, clearGrocList } from "../data/grocList.js";
 import { loadDishFromStorage, saveDishToStorage, dishList, clearDishList, removeDish, renderDish } from "../data/dishList.js";
-import { recipes, getIngredients } from "../data/recipes.js";
+import { recipes, getIngredients, getAllRecipeNames } from "../data/recipes.js";
 
 loadGrocFromStorage();
 loadDishFromStorage();
@@ -153,14 +153,15 @@ document.querySelectorAll('.js-dish-input').forEach((link,index)=> {
         if (e.key === 'Enter'){
             // Only add when there is no dish yet for that day
             let dishPrev = document.querySelector(`.js-dish-render-${index}`).innerHTML
-            const dish = link.value;
+            const dish = link.value.toLowerCase();
             if (dish) {
                 if (!dishPrev) {
                     //console.log('not previous dish')
-                    addDish(dish);
-        
-                    // Generate HTML
-                    renderDish(dish,index);
+                    let matchingItem = addDish(dish,index);
+
+                    if (matchingItem) {
+                        renderDish(dish,index);
+                    }
                    
                 } else if (dishPrev !== dish) {
                         // Overwrite the dish
@@ -180,19 +181,37 @@ function addDish(dish) {
 
     //const today = dayjs();
 
-    dishList.push(dish);
-    //console.log(dishList);
-
-    saveDishToStorage();
-
-    // Get ingredients
-    const ingredients = getIngredients(dish);
-
-    // Add all ingredients to todoList
-    ingredients.forEach((ingredient) =>{
-        //console.log(ingredient)
-        addIngredient(ingredient);
+    // Check if dish is in the recipe list
+    let matchingRecipe;
+    recipes.forEach((recipe) => {
+        if (recipe.name === dish) {
+            matchingRecipe = dish;
+            console.log("found")
+        }
     })
+
+    if (matchingRecipe) {
+        dishList.push(dish);
+        //console.log(dishList);
+
+        saveDishToStorage();
+
+        // Get ingredients
+        const ingredients = getIngredients(dish);
+
+        // Add all ingredients to todoList
+        ingredients.forEach((ingredient) =>{
+            //console.log(ingredient)
+            addIngredient(ingredient);
+        });
+
+    } else {
+        const recipeNameList = getAllRecipeNames();
+        alert(`No matching recipe found for ${dish}\n The available recipes are ${recipeNameList}` )
+    }
+
+    return matchingRecipe
+
 }
 
 // Clear the whole dishList
