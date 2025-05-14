@@ -111,7 +111,11 @@ export function renderTodoList() {
     // Plus button
     document.querySelectorAll('.js-plus-button').forEach((plusButton,index) => {
         plusButton.addEventListener('click', ()=> {
-            grocList[index].quantity++;
+            if (grocList[index].quantity >= 100) {
+                grocList[index].quantity += 50;
+            } else {
+                grocList[index].quantity++;
+            }
             saveGrocToStorage();
             renderTodoList();
         });
@@ -121,7 +125,12 @@ export function renderTodoList() {
     document.querySelectorAll('.js-min-button').forEach((minButton,index) => {
         minButton.addEventListener('click', ()=>{
             if (grocList[index].quantity > 1) {
-                grocList[index].quantity--;
+                if (grocList[index].quantity >= 100) {
+                    grocList[index].quantity -= 10;
+                } else {
+                    grocList[index].quantity--;
+                }
+                
             } else {
                 grocList.splice(index, 1);
             }
