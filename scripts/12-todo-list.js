@@ -75,8 +75,12 @@ export function renderTodoList() {
     grocList.forEach((todoObject, index) => {
         //const todoObject = grocList[i];
         const {name, dueDate, quantity, unit} = todoObject;
+        let unitString = ''
+        if (unit) {
+            unitString = '(' + unit + ')'
+        }
         const html = 
-            `<div>${name} (${unit})</div>
+            `<div>${name} ${unitString}</div>
             <div>${quantity}</div>
             <div>${dueDate}</div>
             <button class="delete-todo-button js-delete-todo-button">Verwijder</button>
