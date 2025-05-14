@@ -63,3 +63,14 @@ export function renderDish(dish,index) {
     console.log('dish added');
 
 }
+
+export function renderDishes(dishList,list) {
+    list.forEach((index)=> {
+        dishList.forEach((item)=>{
+            if (item.index === index) {
+                document.querySelector(`.js-dish-render-${index}`).innerHTML = item.dish;
+            } 
+        });
+    });
+    document.querySelectorAll('.js-')
+}

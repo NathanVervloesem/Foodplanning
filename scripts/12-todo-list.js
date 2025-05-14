@@ -1,11 +1,12 @@
 import { loadGrocFromStorage, saveGrocToStorage, grocList, clearGrocList } from "../data/grocList.js";
-import { loadDishFromStorage, saveDishToStorage, dishList, clearDishList, removeDish, renderDish } from "../data/dishList.js";
+import { loadDishFromStorage, saveDishToStorage, dishList, clearDishList, removeDish, renderDish, renderDishes } from "../data/dishList.js";
 import { recipes, getIngredients, getAllRecipeNames } from "../data/recipes.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 
 // Load 
 loadGrocFromStorage();
 loadDishFromStorage();
+console.log(dishList);
 
 // Render planning grid
 const list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
@@ -13,6 +14,9 @@ renderPlanningGrid(list);
 
 // Render dates
 renderDates(list);
+
+// Render dishes
+renderDishes(dishList,list)
 
 // Render
 renderTodoList();
@@ -32,6 +36,8 @@ function renderPlanningGrid(list) {
     });
 
     let inputHTML = '<input type="text" class="js-dish-input">';
+
+    const recipeNameList = getAllRecipeNames();
 
     /* Drop down menu; how to get selected value
                              
@@ -238,7 +244,7 @@ document.querySelectorAll('.js-dish-input').forEach((link,index)=> {
                         // Overwrite the dish
                         console.log('overwriting dish')
                         removeDish(index);
-                        addDish(dish);
+                        addDish(dish,index);
                         renderDish(dish,index);
                 };
             };
@@ -251,12 +257,13 @@ document.querySelectorAll('.js-dish-input').forEach((link,index)=> {
 });
 
 
-function addDish(dish) {
+function addDish(dish,index) {
 
     //const today = dayjs();
 
     // Check if dish is in the recipe list
     let matchingRecipe;
+    let matchingIndex
     recipes.forEach((recipe) => {
         if (recipe.name === dish) {
             matchingRecipe = dish;
@@ -265,8 +272,8 @@ function addDish(dish) {
     })
 
     if (matchingRecipe) {
-        dishList.push(dish);
-        //console.log(dishList);
+        dishList.push({dish,index});
+        console.log(dishList);
 
         saveDishToStorage();
 
