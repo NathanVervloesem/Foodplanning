@@ -1,5 +1,5 @@
-import { loadGrocFromStorage, saveGrocToStorage, grocList, clearGrocList } from "../data/grocList.js";
-import { loadDishFromStorage, saveDishToStorage, dishList, clearDishList, removeDish, renderDish, renderDishes } from "../data/dishList.js";
+import { loadGrocFromStorage, saveGrocToStorage, grocList, clearGrocList, renderGrocList, addGroc} from "../data/grocList.js";
+import { loadDishFromStorage, saveDishToStorage, dishList, clearDishList, addDish, removeDish, renderDish, renderDishes } from "../data/dishList.js";
 import { recipes, getIngredients, getAllRecipeNames } from "../data/recipes.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 
@@ -75,161 +75,20 @@ function renderDates(list) {
     }); 
 }
 
-export function renderGrocList() {
-    let todoListHTML = [];
 
-    grocList.forEach((todoObject, index) => {
-        //const todoObject = grocList[i];
-        const {name, dueDate, quantity, unit} = todoObject;
-        let unitString = ''
-        if (unit) {
-            unitString = '(' + unit + ')'
-        }
-        const html = 
-            `<div>${name} ${unitString}</div>
-            <div>${quantity}</div>
-            <div>${dueDate}</div>
-            <button class="delete-todo-button js-delete-todo-button">Verwijder</button>
-            <button class="plus-button js-plus-button">+</button>
-            <button class="min-button js-min-button">-</button>`;
-        todoListHTML += html;
-    });
-
-    //console.log(todoListHTML);
-    
-    document.querySelector('.js-todo-list').innerHTML = todoListHTML;    
-
-    // Delete groc button
-    document.querySelectorAll('.js-delete-todo-button').forEach((deleteButton, index) => {
-        deleteButton.addEventListener('click', () => {
-            grocList.splice(index, 1);
-            saveGrocToStorage();
-            renderGrocList();
-        });
-    });
-        
-    // Plus button
-    document.querySelectorAll('.js-plus-button').forEach((plusButton,index) => {
-        plusButton.addEventListener('click', ()=> {
-            if (grocList[index].quantity >= 100) {
-                grocList[index].quantity += 50;
-            } else {
-                grocList[index].quantity++;
-            }
-            saveGrocToStorage();
-            renderGrocList();
-        });
-    });
-
-    // Min button
-    document.querySelectorAll('.js-min-button').forEach((minButton,index) => {
-        minButton.addEventListener('click', ()=>{
-            if (grocList[index].quantity > 1) {
-                if (grocList[index].quantity >= 100) {
-                    grocList[index].quantity -= 10;
-                } else {
-                    grocList[index].quantity--;
-                }
-                
-            } else {
-                grocList.splice(index, 1);
-            }
-            
-            saveGrocToStorage();
-            renderGrocList();
-        })
-
-    });
-    
-}
 
 // Adding a grocery in list
 document.querySelector('.js-add-todo-button').addEventListener('click', () => {
-    addTodo();
+    addGroc();
     console.log('push')
 });
 
-function addTodo() {
-    const inputElement = document.querySelector('.js-name-input');
-    const name =  inputElement.value;
 
-    const dateInputElement = document.querySelector('.js-due-date-input');
-    const dueDate = dateInputElement.value;
-
-    const quantityInputElement = document.querySelector('.js-quantity-input');
-    const quantity = Number(quantityInputElement.value);
-    
-    /*
-    todoList.push({
-        name: name,
-        dueDate: dueDate});
-    */
-    let matchingGroc
-    grocList.forEach((groc,index) => {
-        if (groc.name === name) {
-            matchingGroc = groc.name;
-            groc.quantity += quantity;
-
-
-            // Remove from list if quantity is zero or lower    
-            if (groc.quantity < 1) {
-                grocList.splice(index,1);
-            }
-        }
-    })
-    if (!matchingGroc) {
-        grocList.push(
-            {
-                name,
-                dueDate,
-                quantity,
-                unit
-            }
-        );   
-    }
-
-    inputElement.value = '';
-    dateInputElement.value = '';
-    quantityInputElement.value = '';
-
-
-    saveGrocToStorage();
-
-    renderGrocList();
-
-}
-
-function addIngredient(ingredient) {
-
-    let matchingIngredient
-    grocList.forEach((groc) => {
-        // Find matching item
-        if (groc.name === ingredient.name) {
-            matchingIngredient = groc.name;
-            groc.quantity += ingredient.quantity;
-        } 
-    })
-    if (!matchingIngredient) {
-        grocList.push(
-            {
-                name: ingredient.name,
-                dueDate:'',
-                quantity: ingredient.quantity,
-                unit: ingredient.unit
-            })
-    }
-
-
-    saveGrocToStorage();
-
-    renderGrocList();
-}
 
 // Remove all from grocList
 document.querySelector('.js-clear-todo-list').addEventListener('click', () => {
     clearGrocList();
     renderGrocList();
-
 })
 
 // Adding a dish by Enter dish
@@ -264,45 +123,6 @@ document.querySelectorAll('.js-dish-input').forEach((link,index)=> {
         };
     })
 });
-
-
-function addDish(dish,index) {
-
-    //const today = dayjs();
-
-    // Check if dish is in the recipe list
-    let matchingRecipe;
-    let matchingIndex
-    recipes.forEach((recipe) => {
-        if (recipe.name === dish) {
-            matchingRecipe = dish;
-            console.log("found")
-        }
-    })
-
-    if (matchingRecipe) {
-        dishList.push({dish,index});
-        console.log(dishList);
-
-        saveDishToStorage();
-
-        // Get ingredients
-        const ingredients = getIngredients(dish);
-
-        // Add all ingredients to todoList
-        ingredients.forEach((ingredient) =>{
-            //console.log(ingredient)
-            addIngredient(ingredient);
-        });
-
-    } else {
-        const recipeNameList = getAllRecipeNames();
-        alert(`No matching recipe found for ${dish}\n The available recipes are ${recipeNameList}` )
-    }
-
-    return matchingRecipe
-
-}
 
 // Clear the whole dishList
 document.querySelector('.js-clear-all-dish-list').addEventListener('click',() => {

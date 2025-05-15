@@ -1,6 +1,6 @@
 import { recipes, getIngredients } from "../data/recipes.js";
 import { loadGrocFromStorage, saveGrocToStorage, grocList, clearGrocList } from "./grocList.js";
-import { renderGrocList } from "../scripts/index.js";
+import { addIngredient, renderGrocList } from "./grocList.js";
 export let dishList;
 
 loadDishFromStorage();
@@ -20,6 +20,44 @@ export function saveDishToStorage() {
 export function clearDishList() {
     dishList = [];
     saveDishToStorage();
+}
+
+export function addDish(dish,index) {
+
+    //const today = dayjs();
+
+    // Check if dish is in the recipe list
+    let matchingRecipe;
+    let matchingIndex
+    recipes.forEach((recipe) => {
+        if (recipe.name === dish) {
+            matchingRecipe = dish;
+            console.log("found")
+        }
+    })
+
+    if (matchingRecipe) {
+        dishList.push({dish,index});
+        console.log(dishList);
+
+        saveDishToStorage();
+
+        // Get ingredients
+        const ingredients = getIngredients(dish);
+
+        // Add all ingredients to todoList
+        ingredients.forEach((ingredient) =>{
+            //console.log(ingredient)
+            addIngredient(ingredient);
+        });
+
+    } else {
+        const recipeNameList = getAllRecipeNames();
+        alert(`No matching recipe found for ${dish}\n The available recipes are ${recipeNameList}` )
+    }
+
+    return matchingRecipe
+
 }
 
 export function removeDish(index) {
