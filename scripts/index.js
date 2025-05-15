@@ -19,7 +19,7 @@ renderDates(list);
 renderDishes(dishList,list)
 
 // Render
-renderTodoList();
+renderGrocList();
 
 function renderPlanningGrid(list) {
     let planningHTML = `<div class="subtitle">Dag</div>
@@ -75,7 +75,7 @@ function renderDates(list) {
     }); 
 }
 
-export function renderTodoList() {
+export function renderGrocList() {
     let todoListHTML = [];
 
     grocList.forEach((todoObject, index) => {
@@ -104,7 +104,7 @@ export function renderTodoList() {
         deleteButton.addEventListener('click', () => {
             grocList.splice(index, 1);
             saveGrocToStorage();
-            renderTodoList();
+            renderGrocList();
         });
     });
         
@@ -117,7 +117,7 @@ export function renderTodoList() {
                 grocList[index].quantity++;
             }
             saveGrocToStorage();
-            renderTodoList();
+            renderGrocList();
         });
     });
 
@@ -136,7 +136,7 @@ export function renderTodoList() {
             }
             
             saveGrocToStorage();
-            renderTodoList();
+            renderGrocList();
         })
 
     });
@@ -195,7 +195,7 @@ function addTodo() {
 
     saveGrocToStorage();
 
-    renderTodoList();
+    renderGrocList();
 
 }
 
@@ -222,13 +222,13 @@ function addIngredient(ingredient) {
 
     saveGrocToStorage();
 
-    renderTodoList();
+    renderGrocList();
 }
 
 // Remove all from grocList
 document.querySelector('.js-clear-todo-list').addEventListener('click', () => {
     clearGrocList();
-    renderTodoList();
+    renderGrocList();
 
 })
 

@@ -1,6 +1,6 @@
 import { recipes, getIngredients } from "../data/recipes.js";
 import { loadGrocFromStorage, saveGrocToStorage, grocList, clearGrocList } from "./grocList.js";
-import { renderTodoList } from "../scripts/12-todo-list.js";
+import { renderGrocList } from "../scripts/index.js";
 export let dishList;
 
 loadDishFromStorage();
@@ -48,7 +48,7 @@ export function removeDish(index) {
                         grocList.splice(index, 1);
                     };
                     saveGrocToStorage();
-                    renderTodoList();
+                    renderGrocList();
                 };
             });
     
