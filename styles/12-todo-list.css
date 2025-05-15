@@ -1,14 +1,14 @@
 body {
     font-family: Arial;
 }
-.todo-grid, .todo-input-grid {
+.todo-grid, .todo-input-grid, .inv-input-grid {
     display: grid;
     grid-template-columns: 200px 100px 150px 100px 30px 30px;
     column-gap: 10px;
     row-gap: 10px;
     align-items: center;
 }
-.todo-input-grid{
+.todo-input-grid, .inv-input-grid{
     margin-bottom: 10px;
     align-items: stretch;
     
@@ -22,11 +22,11 @@ body {
     margin-bottom: 50px;
 }
 
-.name-input, .due-date-input, .quantity-input {
+.name-input, .due-date-input, .quantity-input, .inv-name-input, .inv-quantity-input {
     font-size: 15px;
     padding: 6px;
 }
-.add-todo-button {
+.add-todo-button, .add-inv-button {
     background-color:green;
     color: white;
     border: none;
@@ -79,4 +79,9 @@ body {
     row-gap: 10px;
     align-items: center;
     margin-bottom: 50px;
+}
+.suggestion-grid{
+    display: grid;
+    grid-template-columns: 100px 50px;
+    margin-bottom: 10px;
 }
